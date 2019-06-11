@@ -11,7 +11,6 @@ class App extends React.Component {
   }
 
   clickVideo (index) {
-    //this.setState(this.state = !this.state);
     this.setState({
       videoIndex: index
     });
