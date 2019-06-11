@@ -1,5 +1,6 @@
 import VideoList from './VideoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
+import VideoPlayer from './VideoPlayer.js';
 
 var App = (props) => (
   
@@ -12,7 +13,7 @@ var App = (props) => (
     </nav>
     <div className="row">
       <div className="col-md-7">
-        <div><h5><em>videoPlayer</em> view goes here</h5></div>
+        <VideoPlayer video={exampleVideoData[0]}/>
       </div>
       <div className="col-md-5">
         <VideoList videos={exampleVideoData}/> 
