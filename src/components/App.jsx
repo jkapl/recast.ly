@@ -1,20 +1,33 @@
 import VideoList from './VideoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import VideoPlayer from './VideoPlayer.js';
+import searchYouTube from '../lib/searchYouTube.js';
+// import storeData from '../lib/searchYouTube.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { videoIndex: 0 };
-
+    this.state = { videoIndex: 0, videoData: exampleVideoData };
     this.clickVideo = this.clickVideo.bind(this);
+    this.searchClick = this.searchClick.bind(this);
   }
 
   clickVideo (index) {
     this.setState({
       videoIndex: index
     });
-    console.log(index);
+  } 
+
+  searchClick (string) {
+    searchYouTube({'query': string, 'key': 'AIzaSyC4ipBzukUYIXzal8oFxqlolVH-ZEghLWA'},(data) => {
+      console.log(data);
+      this.setState({
+        videoData: data.items
+      });
+      console.log(this.state);
+
+    });
 
   }
   
@@ -24,15 +37,15 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search searchClick={this.searchClick}/>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={exampleVideoData[this.state.videoIndex]}/>
+            <VideoPlayer video={this.state.videoData[this.state.videoIndex]}/>
           </div>
           <div className="col-md-5">
-            <VideoList videos={exampleVideoData} clickFunc={this.clickVideo}/> 
+            <VideoList videos={this.state.videoData} clickFunc={this.clickVideo}/> 
           </div>
         </div>
       </div>
